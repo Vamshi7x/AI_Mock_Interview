@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Mock Interviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=2" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon">🎯</span>
+        <h1>AI Mock Interviewer</h1>
+      </div>
+      <p class="sidebar-label">Practice Topics</p>
+      <ul class="topic-list" id="topic-preview"></ul>
+      <div class="sidebar-info">
+        <p>Answer questions and receive:</p>
+        <ul>
+          <li>Evaluation</li>
+          <li>Ideal Answers</li>
+          <li>Performance Report</li>
+          <li>Learning Recommendations</li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <p>Created by Vamshi</p>
+        <div class="sidebar-socials">
+          <a href="https://github.com/Vamshi7x" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/vamshikummari7x/" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- CONFIG -->
+      <section id="view-config" class="view active">
+        <header class="page-header">
+          <h2>Configure Interview</h2>
+          <p>Set up your mock interview session</p>
+        </header>
+
+        <form id="config-form" class="config-form">
+          <div class="form-grid">
+            <div class="form-section">
+              <h3>Candidate Info</h3>
+              <label>
+                Name
+                <input type="text" id="name" name="name" required placeholder="Your name" />
+              </label>
+              <fieldset class="radio-group">
+                <legend>Experience Level</legend>
+                <label class="radio-pill">
+                  <input type="radio" name="experience" value="Fresher" checked />
+                  <span>Fresher</span>
+                </label>
+                <label class="radio-pill">
+                  <input type="radio" name="experience" value="Experienced" />
+                  <span>Experienced</span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="form-section">
+              <h3>Interview Settings</h3>
+              <label>
+                Topic
+                <select id="topic" name="topic" required></select>
+              </label>
+              <label>
+                Difficulty
+                <select id="difficulty" name="difficulty">
+                  <option value="easy">Easy</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </label>
+              <fieldset class="radio-group">
+                <legend>Answer Format</legend>
+                <label class="radio-pill">
+                  <input type="radio" name="answer_format" value="MCQ" checked />
+                  <span>MCQ</span>
+                </label>
+                <label class="radio-pill">
+                  <input type="radio" name="answer_format" value="Written" />
+                  <span>Written</span>
+                </label>
+                <label class="radio-pill">
+                  <input type="radio" name="answer_format" value="Combined" />
+                  <span>Combined</span>
+                </label>
+              </fieldset>
+              <label>
+                Number of Questions
+                <input type="range" id="num_questions" name="num_questions" min="5" max="50" value="10" step="5" />
+                <output id="num_questions-value">10</output>
+              </label>
+              <p class="form-hint">⏱ MCQ: 60 sec per question · Written: 2 min per question</p>
+            </div>
+          </div>
+
+          <div class="voice-toggle-wrap hidden" id="voice-toggle-wrap">
+            <span class="voice-toggle-label">🎙️ Voice Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="voice-mode-toggle" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="start-btn">
+            <span class="btn-text">Start Interview</span>
+            <span class="btn-spinner hidden"></span>
+          </button>
+        </form>
+      </section>
+
+      <!-- INTERVIEW -->
+      <section id="view-interview" class="view">
+        <div class="interview-top">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="interview-top-row">
+            <p class="progress-label" id="progress-label">Question 1 of 10</p>
+            <div id="timer-wrap" class="timer-wrap hidden">
+              <svg class="timer-ring" viewBox="0 0 36 36">
+                <circle class="timer-ring-bg" cx="18" cy="18" r="15.5" />
+                <circle class="timer-ring-fill" id="timer-ring" cx="18" cy="18" r="15.5" />
+              </svg>
+              <span class="timer-text" id="timer-text">1:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-nav">
+          <button type="button" class="btn btn-nav" id="prev-question" disabled aria-label="Previous question">
+            ← Prev
+          </button>
+          <div class="question-pills" id="question-pills"></div>
+          <button type="button" class="btn btn-nav" id="next-question" disabled aria-label="Next question">
+            Next →
+          </button>
+        </div>
+
+        <div class="question-card">
+          <div class="question-meta" id="question-meta"></div>
+          <h2 class="question-text" id="question-text"></h2>
+
+          <!-- Removed inline voice ui area -->
+
+          <div id="mcq-area" class="answer-area hidden">
+            <p class="answer-label">Choose your answer</p>
+            <div id="mcq-options" class="mcq-options"></div>
+          </div>
+
+          <div id="written-area" class="answer-area hidden">
+            <label>
+              Write your answer
+              <textarea id="written-answer" rows="8" placeholder="Type your answer here..."></textarea>
+            </label>
+          </div>
+
+          <div id="feedback-area" class="feedback-area hidden">
+            <div class="feedback-score" id="feedback-score"></div>
+            <p id="feedback-text"></p>
+          </div>
+
+          <div class="question-actions">
+            <button type="button" class="btn btn-secondary hidden" id="back-to-current-btn">
+              Back to Current Question
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" id="submit-btn">
+              <span class="btn-text">Submit Answer</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-value" id="stat-answered">0</span>
+            <span class="stat-label">Answered</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-remaining">0</span>
+            <span class="stat-label">Remaining</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="stat-format">MCQ</span>
+            <span class="stat-label">Format</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- REPORT -->
+      <section id="view-report" class="view">
+        <header class="page-header">
+          <h2>Interview Report</h2>
+          <p id="report-subtitle"></p>
+        </header>
+
+        <div class="metrics-row">
+          <div class="metric-card highlight">
+            <span class="metric-value" id="overall-score">—</span>
+            <span class="metric-label">Overall Score</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="questions-attempted">—</span>
+            <span class="metric-label">Questions</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="average-score">—</span>
+            <span class="metric-label">Average Score</span>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <h3>Score Trend</h3>
+          <canvas id="score-chart"></canvas>
+        </div>
+
+        <div class="report-section">
+          <h3>Strengths</h3>
+          <ul id="strengths-list" class="tag-list strengths"></ul>
+        </div>
+
+        <div class="report-section">
+          <h3>Areas for Improvement</h3>
+          <ul id="weaknesses-list" class="tag-list weaknesses"></ul>
+        </div>
+
+        <div class="report-section">
+          <h3>Recommended Topics</h3>
+          <ul id="recommendations-list" class="tag-list recommendations"></ul>
+        </div>
+
+        <div class="report-section">
+          <h3>Summary</h3>
+          <p id="summary-text" class="summary-text"></p>
+        </div>
+
+        <div class="report-section">
+          <h3>Detailed Question Review</h3>
+          <div id="question-review"></div>
+        </div>
+
+        <div class="report-actions">
+          <button type="button" class="btn btn-secondary" id="download-btn">Download Report</button>
+          <button type="button" class="btn btn-primary" id="restart-btn">Restart Interview</button>
+        </div>
+      </section>
+
+      <!-- LOADING OVERLAY -->
+      <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-card">
+          <div class="loading-spinner"></div>
+          <p id="loading-message">Generating report...</p>
+        </div>
+      </div>
+
+      <!-- TOAST -->
+      <div id="toast" class="toast hidden"></div>
+
+      <!-- FLOATING VOICE BUTTON -->
+      <button id="floating-voice-btn" class="floating-voice-btn hidden" title="Start Voice Mode">
+        🎙️ Voice Mode
+      </button>
+    </main>
+  </div>
+
+  <!-- VOICE OVERLAY -->
+  <div id="voice-overlay" class="voice-overlay hidden">
+    <button id="exit-voice-btn" class="btn btn-secondary exit-voice-btn">Exit Voice Mode</button>
+    
+    <div class="voice-overlay-content">
+      <div class="orb-container">
+        <div id="voice-orb" class="voice-orb idle"></div>
+      </div>
+      
+      <div class="streaming-text-container">
+        <h2 id="voice-question-text" class="voice-question-text"></h2>
+      </div>
+      
+      <div class="voice-transcript-container">
+        <p id="voice-live-transcript" class="voice-live-transcript"></p>
+      </div>
+    </div>
+    
+    <div class="voice-overlay-actions">
+      <button id="stop-speaking-btn" class="btn btn-primary stop-speaking-btn hidden">
+        Stop Speaking
+      </button>
+    </div>
+  </div>
+
+  <script src="/assets/js/app.js?v=2" type="module"></script>
+</body>
+</html>
