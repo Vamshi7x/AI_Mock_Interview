@@ -472,6 +472,8 @@ function renderActiveQuestion(question, format, isResume = false) {
   if (!isResume) {
     state.selectedOption = null;
     state.writtenAnswer = "";
+    const ta = $("#written-answer");
+    if (ta) ta.value = "";
   }
 
   setReviewBanner(false);
