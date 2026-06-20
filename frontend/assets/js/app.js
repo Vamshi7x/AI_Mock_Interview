@@ -1,5 +1,5 @@
-const API_BASE = "";
-
+// const API_BASE = "";
+const API_BASE = "https://ai-mock-interview-p9ib.onrender.com";
 const TIMER_SECONDS = { MCQ: 60, Written: 120 };
 const TIMER_RING_CIRCUMFERENCE = 97.4;
 
